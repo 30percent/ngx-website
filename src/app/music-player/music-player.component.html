@@ -1,0 +1,12 @@
+<mat-list>
+  <h3 mat-subheader>Roughed Up</h3>
+  <mat-list-item *ngFor="let song of songs" dense [@fadeIn]="''">
+    <mat-icon mat-list-icon *ngIf="SongsService.currentPlaying == song && !SongsService.isPaused" (click)="SongsService.pause()">pause</mat-icon>
+    <mat-icon mat-list-icon *ngIf="SongsService.currentPlaying != song || (SongsService.isPaused || SongsService.isStopped)"
+      (click)="SongsService.playSong(song)">play_arrow</mat-icon>
+    <mat-icon mat-list-icon *ngIf="SongsService.currentPlaying == song && !SongsService.isStopped" (click)="SongsService.stop()">stop</mat-icon>
+    <mat-icon mat-list-icon *ngIf="SongsService.currentPlaying != song || SongsService.isStopped"></mat-icon>
+    <h4 mat-line>{{song.title}}</h4>
+    <p mat-line>{{song.author}}</p>
+  </mat-list-item>
+</mat-list>

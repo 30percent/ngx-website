@@ -1,0 +1,19 @@
+<mat-card *ngIf="SongsService.currentInd >= 0">
+  <mat-card-title>{{SongsService.playlist[SongsService.currentInd].title}}</mat-card-title>
+  <mat-card-subtitle>{{SongsService.playlist[SongsService.currentInd].author}}</mat-card-subtitle>
+  <mat-card-subtitle>{{SongsService.progressedTime}} / {{SongsService.trackTime}}</mat-card-subtitle>
+  <mat-card-content style="position: relative;"
+  (click)="seek($event)">
+    <img src="{{SongsService.playlist[SongsService.currentInd].waveform}}" style="width: 100%">
+    <div style="background: grey; opacity: .3; position: absolute; height: 100%; top: 0; left: 0;"
+      [style.width]="getProgressWidth()"
+    ></div> 
+  </mat-card-content>
+  <mat-card-actions>
+      <mat-icon (click)="SongsService.prev()">skip_previous</mat-icon>
+      <mat-icon *ngIf="SongsService.isPlaying" (click)="SongsService.pause()">pause</mat-icon>
+      <mat-icon *ngIf="!SongsService.isPlaying" (click)="SongsService.playSong()">play_arrow</mat-icon>
+      <mat-icon (click)="SongsService.stop()">stop</mat-icon>
+      <mat-icon (click)="SongsService.next()">skip_next</mat-icon>
+  </mat-card-actions>
+</mat-card>
