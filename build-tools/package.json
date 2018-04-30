@@ -12,6 +12,7 @@
     "bluebird": "^3.5.1",
     "http-server": "^0.11.1",
     "lodash": "^4.17.5",
+    "musicmetadata": "^2.0.5",
     "puppeteer": "^1.0.0",
     "wavesurfer.js": "^2.0.3"
   }

@@ -1,11 +1,10 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div style="text-align:center" class="center-column">
   <h1>
-    {{ title }}!
+    {{ title }}
   </h1>
-  <nav>
-  </nav>
+  <app-music-header></app-music-header>
   <router-outlet></router-outlet>
   <app-messages></app-messages>
-  <app-music-playing></app-music-playing>
+  <app-music-playing style="position: absolute; bottom: 0; right: 0; width: 350px;"></app-music-playing>
 </div>

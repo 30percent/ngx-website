@@ -1,0 +1,16 @@
+<button [matMenuTriggerFor]="albumMenu">
+  <span>Albums</span>
+</button>
+<button [matMenuTriggerFor]="tidbitsMenu">
+  <span>Code Tidbits</span>
+</button>
+<mat-menu #albumMenu="matMenu" y-position="below" overlapTrigger="false">
+  <button [hidden]="albums.length < 1" mat-menu-item *ngFor="let album of albums" routerLink="/album/{{album.id}}">
+    <span>{{album.title}}</span>
+  </button>
+</mat-menu>
+<mat-menu #tidbitsMenu="matMenu" y-position="below" overlapTrigger="false">
+  <button [hidden]="tidbits.length < 1" mat-menu-item *ngFor="let bit of tidbits" routerLink="/bits/{{bit.route}}">
+    <span>{{bit.title}}</span>
+  </button>
+</mat-menu>

@@ -1,0 +1,14 @@
+<header>Javascript: </header>
+<mat-form-field *ngFor="let param of params">
+  <input matInput placeholder="Parameter Name" [(ngModel)]="param.name">
+</mat-form-field>
+<mat-form-field *ngFor="let param of params">
+  <input matInput placeholder="Parameter Value" [(ngModel)]="param.value">
+</mat-form-field>
+<button (click)="addParam()">Add Parameter</button>
+<div class="editor ace-monokai" my-ace-editor=""></div>
+<button (click)="runAttempt()">Run Attempt</button>
+<p>
+  {{results | json}}
+</p>
+<input [(ngModel)]="results">

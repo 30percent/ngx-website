@@ -1,0 +1,17 @@
+.editor {
+    width: 100%;
+    height: 260px;
+}
+
+.ace_content {
+    font-family: "Courier";
+}
+
+.ace_content * {
+    font-family: "Courier";
+}
+
+.results {
+    width: 100%;
+    height: 30px;
+}

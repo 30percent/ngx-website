@@ -15,6 +15,22 @@
             "request": "launch",
             "name": "Build Tools",
             "program": "${workspaceFolder}\\build-tools\\index.js"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Exec",
+            "program": "${workspaceFolder}\\src\\app\\examples\\immutable-gamestate\\execution.ts"
+        },
+        {
+            "name": "Current TS File",
+            "type": "node",
+            "request": "launch",
+            "args": ["${relativeFile}"],
+            "runtimeArgs": ["--nolazy", "-r", "ts-node/register"],
+            "sourceMaps": true,
+            "cwd": "${workspaceRoot}",
+            "protocol": "inspector",
         }
     ]
 }

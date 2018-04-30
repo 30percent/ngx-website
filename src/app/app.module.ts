@@ -15,6 +15,10 @@ import { CustomMaterialModule } from './custom-material/custom-material.module';
 import { MusicPlayerComponent } from './music-player/music-player.component';
 import { SongsService } from './services/songs.service';
 import { MusicPlayingComponent } from './music-playing/music-playing.component';
+import { MusicHeaderComponent } from './music-header/music-header.component';
+import { CajaTestComponent } from './caja-test/caja-test.component';
+import { SafeEvalComponent } from './examples/safe-eval/safe-eval.component';
+import { JsonEditorComponent } from './examples/json-editor/json-editor.component';
 
 
 @NgModule({
@@ -22,7 +26,11 @@ import { MusicPlayingComponent } from './music-playing/music-playing.component';
     AppComponent,
     MessagesComponent,
     MusicPlayerComponent,
-    MusicPlayingComponent
+    MusicPlayingComponent,
+    MusicHeaderComponent,
+    CajaTestComponent,
+    SafeEvalComponent,
+    JsonEditorComponent
   ],
   imports: [
     BrowserAnimationsModule,

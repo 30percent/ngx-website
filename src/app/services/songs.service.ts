@@ -5,7 +5,7 @@ import { fromPromise } from 'rxjs/observable/fromPromise';
 import { Song } from '../classes/song';
 import { Howl, Howler } from 'howler'
 import 'rxjs/add/operator/map';
-import { findIndex, get, map, flatten, capitalize } from 'lodash';
+import { findIndex, get, map, flatten, capitalize, find, filter, pickBy, sortBy } from 'lodash';
 import * as $ from 'jquery';
 import { Promise } from 'bluebird';
 
@@ -31,6 +31,43 @@ export class SongsService {
     return this.playlist[this.currentInd];
   }
 
+  private tracklist(): PromiseLike<any> {
+    return Promise.resolve($.getJSON("assets/albums/tracklist.json"));
+  }
+
+  private createSong(songInfo, albumname, location): Song {
+    return {
+      title: songInfo.title,
+      author: songInfo.artist.join(", "),
+      src: location + "/" + albumname + "/" + songInfo.file,
+      waveform: location + "/" + albumname + "/" + songInfo.file.slice(0, -4) + ".png"
+    } as Song
+  }
+
+  album(pAlbName): Observable<Song[]> {
+    return fromPromise(this.tracklist()
+      .then((resp: any) => {
+        this.songs = flatten(map(
+          pickBy(resp.albums, (ign, albumname) => albumname === pAlbName),
+          (listing: any[], albumname) => {
+            return map(
+              sortBy(listing, (metadata) => metadata.track.no),
+              (metadata) => {
+                return this.createSong(metadata, albumname, resp.location)
+              })
+          })) as Song[]
+        return this.songs;
+      }))
+  }
+
+  albums(): Observable<string[]> {
+    return fromPromise(
+      this.tracklist().then((resp: any) => {
+        console.log(resp);
+        return map(resp.albums, (ign, albumname: string) => albumname as string)
+      })
+    )
+  }
 
   list(): Observable<Song[]> {
     //this is quite the mess, still too much hard coded (need to add more meta to tracklist generator)
@@ -38,12 +75,7 @@ export class SongsService {
       .then((resp: any) => {
         this.songs = flatten(map(resp.albums, (listing: string[], albumname) => {
           return map(listing, (filename) => {
-            return {
-              title: capitalize(filename.slice(0, -4)),
-              author: "Closed Door Insights",
-              src: resp.location + "/" + albumname + "/" + filename,
-              waveform: resp.location + "/" + albumname + "/" + filename.slice(0, -4) + ".png"
-            } as Song
+            return this.createSong(filename, albumname, resp.location)
           })
         })) as Song[]
         return this.songs;

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { SongsService } from '../services/songs.service';
-import { Song } from '../classes/song';
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 import {
   trigger,
   state,
@@ -8,8 +8,10 @@ import {
   animate,
   transition
 } from '@angular/animations';
+import { SongsService } from '../services/songs.service';
+import { Song } from '../classes/song';
 
-import { forEach, partial, bind } from 'lodash';
+import { forEach, partial, bind, clone, first, tail } from 'lodash';
 
 @Component({
   selector: 'app-music-player',
@@ -27,19 +29,24 @@ import { forEach, partial, bind } from 'lodash';
 export class MusicPlayerComponent implements OnInit {
   songs: Song[];
 
-  constructor(private SongsService: SongsService) { }
+  constructor(
+    private SongsService: SongsService,
+    private route: ActivatedRoute,
+    private location: Location,
+  ) { }
 
   ngOnInit() {
-    this.SongsService.list()
+    this.SongsService.album(this.route.snapshot.paramMap.get("name"))
       .subscribe(songs => {
         this.songs = [];
-        var addNextDelay = () => {
-          if(songs.length <= 0) return;
-          this.songs.push(songs.shift());
-          setTimeout(partial(addNextDelay), 200)
-        };
-        addNextDelay();
         this.SongsService.createPlaylist(songs);
+        var addNextDelay = (songList) => {
+          if(songList.length <= 0) return;
+
+          this.songs.push(first(songList));
+          setTimeout(partial(addNextDelay, tail(songList)), 200)
+        };
+        addNextDelay(songs);
       });
   }
 

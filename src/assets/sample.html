@@ -1,0 +1,21 @@
+<html>
+
+<head></head>
+
+<body>
+  <div>Static hello world</div>
+  <textarea id="text" style="width: 300px; height: 400px;">{
+    "fancyProp": {
+      "somestuff": "In here"
+    }
+  }</textarea>
+  <button id="btn">Save Me!</button>
+  <script type="text/javascript">
+    document.getElementById("btn").onclick = clicky;
+    function clicky() {
+      storeResult(JSON.parse(document.getElementById("text").value));
+    }
+  </script>
+</body>
+
+</html>

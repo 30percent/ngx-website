@@ -1,0 +1,24 @@
+<div>
+    <ng-container *ngTemplateOutlet="objectOption;context:{value: top}"></ng-container>
+</div>
+
+
+
+
+
+<ng-template #objectOption let-props="value">
+  <mat-form-field *ngFor="let prop of props">
+    <input matInput placeholder="propName" [(ngModel)]="prop.name">
+    <input matInput placeholder="propType" [(ngModel)]="prop.type">
+    <input matInput placeholder="propName" [(ngModel)]="prop.value">
+  </mat-form-field>
+  <button mat-button color="accent" (click)="addProp(props)">Add Property</button>
+</ng-template>
+<!-- 
+<ng-template #arrayOption let-items="value">
+
+</ng-template>
+
+<ng-template #leafOption let-value="value">
+  <input matInput placeholder="leaf" [(ngModel)]="value">
+</ng-template> -->
